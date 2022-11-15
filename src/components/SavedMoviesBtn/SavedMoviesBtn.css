@@ -1,0 +1,19 @@
+.saved-movie__btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-image: url('../../images/savedmovie.svg');
+    background-color: transparent;
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-color: #F9F9F9;
+  }
+  
+  .saved-movie__btn:hover {
+    cursor: pointer;
+  }
+  
+  .saved-movie__btn:focus {
+    outline: none;
+  }
