@@ -2,14 +2,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
 function SavedMovies() {
-
-
-
     return (
-      <main>
+      <section className='movies'>
         <SearchForm />
         <MoviesCardList renderCards={true}/>
-      </main>
+      </section>
     );
   }
 

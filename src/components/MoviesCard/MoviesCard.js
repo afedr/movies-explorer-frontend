@@ -4,7 +4,7 @@ import SavedMoviesBtn from '../SavedMoviesBtn/SavedMoviesBtn';
 import SavedMoviesRemoveBtn from '../SavedMoviesRemoveBtn/SavedMoviesRemoveBtn';
 import './MoviesCard.css';
 
-function MoviesCard({title, duration, link, trailer, saved}) {
+function MoviesCard({title, duration, link, trailer, isSaved, isSavedMoviesPage }) {
   
 return ( 
 <>
@@ -14,9 +14,9 @@ return (
           <h4 className="movie-card__title">{title}</h4>
           <p className="movie-card__duration">{duration}</p>
         </div>
-        {saved
+        {isSavedMoviesPage
         ? <SavedMoviesRemoveBtn />
-        : <SavedMoviesBtn /> }
+        : <SavedMoviesBtn isSaved={isSaved} /> }
       </div>
       <a className="movie-card__link" href={trailer} target="_blank" rel="noopener noreferrer">
         <img

@@ -5,3 +5,21 @@
     min-height: 70vh;
     padding: 0 70px;
 }
+
+@media screen and (min-width: 320px) {
+    .movies {
+      padding: 0px 10px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .movies {
+      padding: 0px 30px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .movies {
+      padding: 0px 70px;
+    }
+}

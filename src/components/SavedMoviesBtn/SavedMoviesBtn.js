@@ -1,11 +1,15 @@
 import React from 'react';
 import './SavedMoviesBtn.css';
 
-function SavedMoviesBtn() {
+function SavedMoviesBtn({ isSaved, onClick }) {
   return (
     <button
-      className='saved-movie__btn'
+      className= {!isSaved
+          ? 'saved-movie__btn'
+          : 'saved-movie__btn saved-movie__btn-saved'
+      }
       type="button"
+      onClick={onClick}
     />
   );
 }

@@ -8,8 +8,7 @@ function Technology() {
       <article className='techs__description'>
         <h1 className='techs__heading'>7 технологий</h1>
         <p className='techs__article'>
-          На курсе веб-разработки мы освоили технологии, которые применили в
-          дипломном проекте.
+          На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
         </p>
       </article>
       <article className='techs__tags'>

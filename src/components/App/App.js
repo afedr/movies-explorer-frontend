@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import ErrorPage from '../ErrorPage/ErrorPage';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -49,6 +50,10 @@ function App() {
         <Header isNavigation={true}/>
             <Profile />
           </Route> 
+
+          <Route path='*'>
+            <ErrorPage />
+          </Route>
 
       </Switch>
       </BrowserRouter>

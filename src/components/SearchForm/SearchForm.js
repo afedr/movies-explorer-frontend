@@ -1,9 +1,8 @@
 import './SearchForm.css';
 
-function SearchForm({ search, inputKeyString }) {
+function SearchForm() {
 
   return (
-    <div>
     <form className='search-form'>
       <div className='search-form__search'>
         <input
@@ -11,7 +10,7 @@ function SearchForm({ search, inputKeyString }) {
           placeholder='Фильм'
           type='search'
         />
-
+        <div className='search-form__loupe'></div>
         <button
           type='submit'
           className='search-form__button'>
@@ -27,10 +26,8 @@ function SearchForm({ search, inputKeyString }) {
         <span className='filter-checkbox__label'>Короткометражки</span>
       </label>
       </div>
-
-    </form>
       <hr className='search-form__line' />
-      </div>
+      </form>
   );
 }
 
