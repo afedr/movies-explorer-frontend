@@ -1,11 +1,7 @@
-import './Form.css';
+import "./Form.css";
 
 function Form({ children }) {
-  return (
-    <form className='form'>
-      {children}
-    </form>
-  );
+  return <form className="form"> {children} </form>;
 }
 
 export default Form;

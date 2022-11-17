@@ -17,12 +17,12 @@
   
   .footer__line {
     width: 100%;
-    margin: 0 auto;
     border: none;
     border-top: 1px solid #e8e8e8;
+    margin: 0 auto;
   }
   
-  .footer__container {
+  .footer__box {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -77,7 +77,7 @@
       margin: 60px auto 20px;
     }
   
-    .footer__container {
+    .footer__box {
       flex-direction: row-reverse;
       justify-content: space-between;
       align-items: baseline;

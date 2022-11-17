@@ -1,66 +1,58 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
-import ErrorPage from '../ErrorPage/ErrorPage';
-import Main from '../Main/Main';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import Profile from '../Profile/Profile';
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import ErrorPage from "../ErrorPage/ErrorPage";
+import Main from "../Main/Main";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import Profile from "../Profile/Profile";
 
 function App() {
-
-
-
   return (
-
     <div className="app">
       <BrowserRouter>
-      <Switch>
-        <Route exact path='/'>
-          <Header isNavigation={false}/>
-          <Main /> 
-          <Footer />
-        </Route>
-
-        <Route path='/movies'>
-          <Header isNavigation={true}/>
-          <Movies  isLoading={false} />  
-          <Footer />
-        </Route>
-
-        <Route path='/saved-movies'>
-          <Header isNavigation={true}/>
-          <SavedMovies />
-          <Footer />
-        </Route>
-
-        <Route path='/signin'>
-            <Login/>
+        <Switch>
+          <Route exact path="/">
+            <Header navigation={false} />
+            <Main />
+            <Footer />
           </Route>
 
-        <Route path='/signup'>
+          <Route path="/movies">
+            <Header navigation={true} />
+            <Movies isLoading={false} />
+            <Footer />
+          </Route>
+
+          <Route path="/saved-movies">
+            <Header navigation={true} />
+            <SavedMovies />
+            <Footer />
+          </Route>
+
+          <Route path="/signin">
+            <Login />
+          </Route>
+
+          <Route path="/signup">
             <Register />
           </Route>
-        
-        <Route path='/profile'>
-        <Header isNavigation={true}/>
-            <Profile />
-          </Route> 
 
-          <Route path='*'>
-            <ErrorPage />
+          <Route path="/profile">
+            <Header navigation={true} />
+            <Profile />
           </Route>
 
-      </Switch>
+          <Route path="*">
+            <ErrorPage />
+          </Route>
+        </Switch>
       </BrowserRouter>
-      </div>
-
+    </div>
   );
 }
 
 export default App;
-

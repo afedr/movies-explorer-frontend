@@ -22,7 +22,7 @@
     color: #000;
   }
   
-  .about-project__paragraph {
+  .about-project__article {
     margin: 16px 0 0;
     font-family: 'Inter', 'Helvetica', sans-serif;
     font-weight: 400;
@@ -31,6 +31,35 @@
     color: #000;
   }
   
+  .about-project__backend {
+    margin: 0;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 400;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    line-height: 14px;
+    color: #000;
+    background-color: #2be080;
+  }
+  
+  .about-project__frontend {
+    color: #000;
+    background-color: #f2f2f2;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 14px;
+  }
+  
+    
   .about-project__graph {
     margin: 60px 0 70px;
     display: grid;
@@ -39,35 +68,7 @@
     gap: 10px 0px;
     text-align: center;
   }
-  
-  .about-project__backend {
-    margin: 0;
-    font-family: 'Inter', 'Helvetica', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 14px;
-    color: #000;
-    background-color: #2be080;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .about-project__frontend {
-    margin: 0;
-    font-family: 'Inter', 'Helvetica', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 14px;
-    color: #000;
-    background-color: #f2f2f2;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+
   .about-project__caption {
     margin: 0;
     font-family: 'Inter', 'Helvetica', sans-serif;
@@ -89,17 +90,17 @@
       flex-wrap: wrap;
     }
   
-    .about-project__text-section {
-      width: calc((100% - 30px) / 2);
-    }
-  
     .about-project__header-small {
       font-size: 20px;
       line-height: 24px;
       margin: 70px 0 0;
     }
   
-    .about-project__paragraph {
+    .about-project__text-section {
+      width: calc((100% - 30px) / 2);
+    }
+
+    .about-project__article {
       font-size: 12px;
       line-height: 18px;
       margin: 22px 0 0;
@@ -117,15 +118,15 @@
       height: 36px;
     }
   
+    .about-project__caption {
+      font-size: 14px;
+      line-height: 17px;
+    }
+
     .about-project__frontend {
       font-size: 14px;
       line-height: 17px;
       height: 36px;
-    }
-  
-    .about-project__caption {
-      font-size: 14px;
-      line-height: 17px;
     }
   }
   
@@ -133,16 +134,15 @@
     .about-project {
       padding: 0 70px;
     }
-  
-    .about-project__paragraph {
-      font-size: 14px;
-      line-height: 20px;
-    }
-  
+
     .about-project__text-section {
       width: calc((100% - 40px) / 2);
     }
   
+    .about-project__article {
+      font-size: 14px;
+      line-height: 20px;
+    }
     .about-project__graph {
       margin: 110px 0 110px;
     }
