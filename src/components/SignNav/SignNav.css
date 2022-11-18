@@ -1,6 +1,6 @@
 .sign-nav {
     min-height: 59px;
-    padding: 14px 30px 30px;
+    margin: 14px 30px 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -31,9 +31,16 @@
     cursor: pointer;
   }
   
+  @media screen and (min-width: 320px) {
+    .sign-nav {
+     max-width: 260px;
+    }
+  }
+
   @media screen and (min-width: 768px) {
     .sign-nav {
-      padding: 16px 186px 250px;
+      margin: 16px 186px 250px;
+      max-width: 396px;
     }
   
     .sign-nav__label {
@@ -49,6 +56,6 @@
   
   @media screen and (min-width: 1280px) {
     .sign-nav {
-      padding: 14px 442px 70px;
+      margin: 14px 442px 70px;
     }
   }

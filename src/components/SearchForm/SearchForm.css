@@ -49,12 +49,22 @@
     top:25px;
     left:25px;
     align-items: center;
-    background-image: url('../../images/loupe.png');
+    background-image: url('../../images/loupe.svg');
     color: #959595;
     background-repeat: no-repeat;
     width: 22px;
     height: 22px;
     background-position: 50%;
+    cursor: pointer;
+  }
+
+  .search-form__loupe:hover {
+    opacity: 0.6;
+  }
+
+  .search-form__loupe:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px 0px #E5E5E5;
   }
 
   .search-form__button {

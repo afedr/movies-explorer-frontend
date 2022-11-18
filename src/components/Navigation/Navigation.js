@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function Navigation() {
   function navIsMobile() {
-    return window.innerWidth < 1280;
+    return window.innerWidth <= 768;
   }
   const [isMobile, setIsMobile] = useState(navIsMobile());
   const [isNavOpen, setIsNavOpen] = useState(false);

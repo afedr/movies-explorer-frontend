@@ -2,12 +2,13 @@ import "./SearchForm.css";
 
 function SearchForm() {
   return (
-    <form className="search-form">
+    <form className="search-form" required>
       <div className="search-form__search">
         <input
           className="search-form__input"
           placeholder="Фильм"
           type="search"
+          required
         />
         <div className="search-form__loupe"></div>
         <button type="submit" className="search-form__button">

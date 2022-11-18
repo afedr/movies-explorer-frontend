@@ -3,10 +3,18 @@
     flex-direction: column;
     padding: 0 30px;
   }
+
+    
+@media screen and (min-width: 320px) {
+  .form {
+    max-width: 260px;
+    }
+  }
   
   @media screen and (min-width: 768px) {
     .form {
       padding: 0 186px;
+      max-width: 396px;
     }
   }
   

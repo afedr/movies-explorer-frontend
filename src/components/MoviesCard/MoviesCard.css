@@ -6,6 +6,7 @@
     background-color: #FDFDFD;
     font-family: 'Inter', sans-serif;
     font-style: normal;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   }
   
   .movie-card__header {

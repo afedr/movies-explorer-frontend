@@ -139,7 +139,7 @@
   
   
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 769px) {
     .navigation__main-nav {
       flex-direction: row;
     }
@@ -162,7 +162,7 @@
   
   }
 
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 768px) {
     .navigation {
       display: flex;
       justify-content: flex-end;
