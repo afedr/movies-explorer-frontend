@@ -12,6 +12,13 @@
   margin: 0;
 }
 
+.portfolio__list {
+  list-style-type: none;
+}
+
+.portfolio__content {
+  padding: 0;
+}
 .portfolio__line {
   border: 0;
   border-top: 1px solid #e6e6e6;
