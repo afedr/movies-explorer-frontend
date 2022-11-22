@@ -31,7 +31,7 @@ function MoviesCard({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img className="movie-card__image" alt="Фото фильма" src={link} />
+          <img className="movie-card__image" alt="Фото фильма" src={`https://api.nomoreparties.co/${link}`} />
         </a>
       </div>
     </>

@@ -11,6 +11,10 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 
 function App() {
+
+
+
+  
   return (
     <div className="app">
       <BrowserRouter>

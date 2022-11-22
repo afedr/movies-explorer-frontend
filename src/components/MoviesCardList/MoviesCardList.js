@@ -1,7 +1,9 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import MoreMoviesBtn from "../MoreMoviesBtn/MoreMoviesBtn";
+import moviesApi from "../../utils/MoviesApi";
 import "./MoviesCardList.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 function MoviesCardList({ renderCards }) {
   const desktopWidth = 1280;
@@ -15,6 +17,7 @@ function MoviesCardList({ renderCards }) {
       : 5;
   }
   const [countMaxMovies, setCountMaxMovies] = useState(calcMaxMovies());
+  const [allMovies, setAllMovies] = useState([]);
 
   window.addEventListener(
     "resize",
@@ -24,97 +27,13 @@ function MoviesCardList({ renderCards }) {
     true
   );
 
-  const allMovies = [
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: false,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-  ];
-
+  useEffect (() => {
+    moviesApi.getMovies()
+    .then ((movies) => {
+      setAllMovies(movies)
+    })
+  })
+  
   const moviesToRender = renderCards
     ? allMovies.filter((movie) => movie.saved)
     : allMovies;
@@ -131,9 +50,9 @@ function MoviesCardList({ renderCards }) {
           <li className="movies-card-list__item">
             <MoviesCard
               duration={movie.duration}
-              title={movie.title}
-              link={movie.link}
-              trailer={movie.trailer}
+              title={movie.nameRU}
+              link={movie.image.url}
+              trailer={movie.trailerLink}
               isSaved={movie.saved}
               isSavedMoviesPage={renderCards}
             />
