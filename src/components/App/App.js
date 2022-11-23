@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Main from "../Main/Main";
@@ -13,8 +14,7 @@ import Profile from "../Profile/Profile";
 function App() {
 
 
-
-  
+ 
   return (
     <div className="app">
       <BrowserRouter>
@@ -27,7 +27,7 @@ function App() {
 
           <Route path="/movies">
             <Header navigation={true} />
-            <Movies isLoading={false} />
+            <Movies isLoading={false}/>
             <Footer />
           </Route>
 

@@ -1,11 +1,10 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import MoreMoviesBtn from "../MoreMoviesBtn/MoreMoviesBtn";
-import moviesApi from "../../utils/MoviesApi";
 import "./MoviesCardList.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
-function MoviesCardList({ renderCards }) {
+function MoviesCardList({ renderCards, renderCurrentMovies }) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
@@ -17,7 +16,6 @@ function MoviesCardList({ renderCards }) {
       : 5;
   }
   const [countMaxMovies, setCountMaxMovies] = useState(calcMaxMovies());
-  const [allMovies, setAllMovies] = useState([]);
 
   window.addEventListener(
     "resize",
@@ -26,27 +24,21 @@ function MoviesCardList({ renderCards }) {
     },
     true
   );
-
-  useEffect (() => {
-    moviesApi.getMovies()
-    .then ((movies) => {
-      setAllMovies(movies)
-    })
-  })
   
-  const moviesToRender = renderCards
-    ? allMovies.filter((movie) => movie.saved)
-    : allMovies;
+  // const moviesToRender = renderCards
+  //   ? allMovies.filter((movie) => movie.saved)
+  //   : allMovies;
 
-  const renderCurrentMovies =
-    moviesToRender.length >= countMaxMovies
-      ? moviesToRender.slice(0, countMaxMovies)
-      : moviesToRender;
+
+  const resizeCurrentMovies =
+  renderCurrentMovies.length >= countMaxMovies
+      ? renderCurrentMovies.slice(0, countMaxMovies)
+      : renderCurrentMovies;
 
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {renderCurrentMovies.map((movie) => (
+        {resizeCurrentMovies.map((movie) => (
           <li className="movies-card-list__item">
             <MoviesCard
               duration={movie.duration}
@@ -59,7 +51,7 @@ function MoviesCardList({ renderCards }) {
           </li>
         ))}
       </ul>
-      {renderCurrentMovies.length < moviesToRender.length && <MoreMoviesBtn />}
+      {resizeCurrentMovies.length < renderCurrentMovies.length && <MoreMoviesBtn />}
     </section>
   );
 }

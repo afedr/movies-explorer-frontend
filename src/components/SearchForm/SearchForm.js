@@ -1,10 +1,10 @@
 import "./SearchForm.css";
 import React from 'react';
 
-function SearchForm({search, keyString}) {
+function SearchForm({ handleSearch}) {
 
   const [error, setError] = React.useState();
-  const [inputValue, setInputValue] = React.useState(keyString);
+  const [inputValue, setInputValue] = React.useState();
 
 
   function handleReset(e) {
@@ -22,7 +22,7 @@ function SearchForm({search, keyString}) {
     if (!inputValue) {
       setError('Нужно ввести ключевое слово');
     } else {
-      search(inputValue); 
+      handleSearch(inputValue); 
     }
   }
 
