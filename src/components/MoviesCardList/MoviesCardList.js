@@ -3,36 +3,49 @@ import MoreMoviesBtn from "../MoreMoviesBtn/MoreMoviesBtn";
 import "./MoviesCardList.css";
 import { useState } from "react";
 
-
+// renderCurrentMovies это запрос пользователя смечился с массивом
 function MoviesCardList({ renderCards, renderCurrentMovies }) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
-  function calcMaxMovies() {
+  function countInitialMovies() { // сколько есть сейчас
     return window.innerWidth >= desktopWidth
       ? 12
       : window.innerWidth >= tabletWidth
       ? 8
       : 5;
   }
-  const [countMaxMovies, setCountMaxMovies] = useState(calcMaxMovies());
+
+  function countAddMovies() {
+    return window.innerWidth >= desktopWidth
+      ? 3
+      : window.innerWidth >= tabletWidth
+      ? 2
+      : 2;
+  }
+
+  const [countToBeMovies, setCountToBeMovies] = useState(countInitialMovies()); //сколько должно быть
 
   window.addEventListener(
     "resize",
     function (event) {
-      setCountMaxMovies(calcMaxMovies());
+      setCountToBeMovies(countInitialMovies());
     },
     true
   );
   
+  function handleMoviesBtn() {
+    setCountToBeMovies(countToBeMovies + countAddMovies())
+  }
+
   // const moviesToRender = renderCards
   //   ? allMovies.filter((movie) => movie.saved)
   //   : allMovies;
-
-
+  
+  // массив кароточек которые мы будем рисовать 
   const resizeCurrentMovies =
-  renderCurrentMovies.length >= countMaxMovies
-      ? renderCurrentMovies.slice(0, countMaxMovies)
+  renderCurrentMovies.length >= countToBeMovies
+      ? renderCurrentMovies.slice(0, countToBeMovies)
       : renderCurrentMovies;
 
   return (
@@ -51,7 +64,7 @@ function MoviesCardList({ renderCards, renderCurrentMovies }) {
           </li>
         ))}
       </ul>
-      {resizeCurrentMovies.length < renderCurrentMovies.length && <MoreMoviesBtn />}
+      {resizeCurrentMovies.length < renderCurrentMovies.length && <MoreMoviesBtn handleMoviesBtn={handleMoviesBtn} />}
     </section>
   );
 }

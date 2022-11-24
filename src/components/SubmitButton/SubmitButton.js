@@ -1,13 +1,16 @@
 import './SubmitButton.css';
 
-function SubmitButton({ label}) {
+function SubmitButton({ label, handleSubmit, isDisabled}) {
   return (
-    <input
-      className='submit-button'
+    <button
+      className={`submit-button ${isDisabled ? 'submit-btn_is-disabled' : ''}`}
       type='submit'
-      value={label}
-    />
+      onClick={handleSubmit}
+      disabled={isDisabled}> 
+      {label}
+    </button>
   );
 }
 
 export default SubmitButton;
+

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
@@ -13,9 +14,9 @@ import Profile from "../Profile/Profile";
 
 function App() {
 
+  
 
- 
-  return (
+ return (
     <div className="app">
       <BrowserRouter>
         <Switch>
@@ -42,7 +43,7 @@ function App() {
           </Route>
 
           <Route path="/signup">
-            <Register />
+            <Register /> 
           </Route>
 
           <Route path="/profile">

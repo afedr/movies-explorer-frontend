@@ -24,3 +24,17 @@
     margin-bottom: 20px;
     color: #A0A0A0;
   }
+
+  .input__inside__error {
+    color: #ee3465;
+  }
+  
+  .input__error {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ee3465;
+  }
