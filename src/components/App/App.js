@@ -1,7 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useState } from "react";
+import { CurrentUserContext } from "../CurrentUserContext/CurrentUserContext";
+import { useEffect, useState } from "react";
+import { mainApi } from "../../utils/MainApi";
+import { useHistory } from "react-router";
 import "./App.css";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -14,42 +18,118 @@ import Profile from "../Profile/Profile";
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'));
+  const history = useHistory();
+  const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
+
+
+  function handleUpdateUser(data) {
+    mainApi
+      .updateUserProfile(data)
+      .then((value) => {
+        setCurrentUser(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleLogout() {
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('renderCurrentMovies');
+      localStorage.removeItem('searchQuery')
+      setLoggedIn(false);
+      setCurrentUser({});
+      history.push('/');
+  }
+
+  function handleLogin(email, password) {
+    return mainApi.login(email, password)
+      .then((data) => {
+        setLoggedIn(true);
+        localStorage.setItem('loggedIn', true);
+      });
+  }
+
+  function addBookmark(movie) {
+    mainApi.addBookmark(movie)
+    .then ((movie) => {
+      setSavedMovies([...savedMovies, { ...movie}]);
+    })
+    .catch ((data) => {
+      console.log(data)
+    })
+  }
+
+  function isSaved(movie) {
+    return savedMovies.some(i => i.movieId === movie.id);
+  }
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      mainApi.checkToken(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setCurrentUser(res);
+          localStorage.setItem('loggedIn', true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
   
+  useEffect(() => {
+    if (savedMovies.length === 0 && currentUser.email) {
+      mainApi.getSavedMovies()
+        .then ((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch ((data) => {
+          console.log(data);
+      
+        })
+    }  
+  }, [currentUser, savedMovies]);
 
  return (
+  <CurrentUserContext.Provider value={currentUser}>
     <div className="app">
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Header navigation={false} />
+            <Header navigation={loggedIn} />
             <Main />
             <Footer />
           </Route>
 
-          <Route path="/movies">
+          <ProtectedRoute exact path="/movies" loggedIn={loggedIn} redirectTo='/'>
             <Header navigation={true} />
-            <Movies isLoading={false}/>
+            <Movies isLoading={false} addBookmark={addBookmark} isSaved={isSaved}/>
             <Footer />
-          </Route>
+          </ProtectedRoute>
 
-          <Route path="/saved-movies">
+          <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} redirectTo='/'>
             <Header navigation={true} />
-            <SavedMovies />
+            <SavedMovies renderSavedCurrentMovies={savedMovies} />
             <Footer />
-          </Route>
+          </ProtectedRoute>
 
           <Route path="/signin">
-            <Login />
+            <Login handleLogin={handleLogin}/>
           </Route>
 
           <Route path="/signup">
             <Register /> 
           </Route>
 
-          <Route path="/profile">
-            <Header navigation={true} />
-            <Profile />
-          </Route>
+          <ProtectedRoute path="/profile" loggedIn={loggedIn} redirectTo='/'>
+            <Header navigation={true}/>
+            <Profile onUpdateProfile={handleUpdateUser} logOutHandler={handleLogout} />
+          </ProtectedRoute>
 
           <Route path="*">
             <ErrorPage />
@@ -57,6 +137,7 @@ function App() {
         </Switch>
       </BrowserRouter>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -1,10 +1,10 @@
 import "./SearchForm.css";
 import React from 'react';
 
-function SearchForm({ handleSearch}) {
+function SearchForm({ handleSearch, searchQuery}) {
 
   const [error, setError] = React.useState();
-  const [inputValue, setInputValue] = React.useState();
+  const [inputValue, setInputValue] = React.useState(searchQuery);
 
 
   function handleReset(e) {
@@ -22,7 +22,7 @@ function SearchForm({ handleSearch}) {
     if (!inputValue) {
       setError('Нужно ввести ключевое слово');
     } else {
-      handleSearch(inputValue); 
+      handleSearch(inputValue);
     }
   }
 
@@ -37,6 +37,7 @@ function SearchForm({ handleSearch}) {
           onFocus={clearError}
           value={inputValue || ''}
           onChange={handleReset}
+
         />
         {error && <span className="search-form__error">{error}</span>}
         <div className="search-form__loupe"></div>

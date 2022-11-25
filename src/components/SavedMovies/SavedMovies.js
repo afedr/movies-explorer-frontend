@@ -1,11 +1,11 @@
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-function SavedMovies() {
+function SavedMovies({renderSavedCurrentMovies}) {
     return (
       <section className='movies'>
         <SearchForm />
-        <MoviesCardList renderCards={true}/>
+        <MoviesCardList renderCards={true} renderCurrentMovies={renderSavedCurrentMovies}  />
       </section>
     );
   }

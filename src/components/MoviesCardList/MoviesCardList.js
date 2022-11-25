@@ -4,7 +4,7 @@ import "./MoviesCardList.css";
 import { useState } from "react";
 
 // renderCurrentMovies это запрос пользователя смечился с массивом
-function MoviesCardList({ renderCards, renderCurrentMovies }) {
+function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved }) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
@@ -38,10 +38,6 @@ function MoviesCardList({ renderCards, renderCurrentMovies }) {
     setCountToBeMovies(countToBeMovies + countAddMovies())
   }
 
-  // const moviesToRender = renderCards
-  //   ? allMovies.filter((movie) => movie.saved)
-  //   : allMovies;
-  
   // массив кароточек которые мы будем рисовать 
   const resizeCurrentMovies =
   renderCurrentMovies.length >= countToBeMovies
@@ -53,13 +49,11 @@ function MoviesCardList({ renderCards, renderCurrentMovies }) {
       <ul className="movies-card-list__list">
         {resizeCurrentMovies.map((movie) => (
           <li className="movies-card-list__item">
-            <MoviesCard
-              duration={movie.duration}
-              title={movie.nameRU}
-              link={movie.image.url}
-              trailer={movie.trailerLink}
+            <MoviesCard movie={movie}
               isSaved={movie.saved}
               isSavedMoviesPage={renderCards}
+              addBookmark={addBookmark}
+              isSaved={isSaved}
             />
           </li>
         ))}

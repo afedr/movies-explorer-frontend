@@ -116,6 +116,19 @@
     text-align: center;
   }
 
+  .profile__error {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ee3465;
+   position: absolute;
+   display: inline;
+   margin-top: 30px;
+  }
+
   @media screen and (min-width: 320px) {
     .profile__info {
      max-width: 260px;

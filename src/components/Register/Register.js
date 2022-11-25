@@ -20,14 +20,10 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("123");
-
     mainApi.register(formWithValidation.values.email, formWithValidation.values.password, formWithValidation.values.name)
     .then((data) => {
       setIsRegisterFailed(false);
       formWithValidation.resetForm();
-      // todo
-      // auth and move to movies page
       history.push("/signin");
     })
     .catch((err) => 

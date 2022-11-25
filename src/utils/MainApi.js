@@ -4,14 +4,23 @@ class MainApi {
       this._headers = headers;
     }
 
-    // export const BASE_URL = 'https://api.nomoreparties.co/beatfilm-movies';
-
     _checkResponse(res) {
       console.log(res);
       if (res.ok) {
         return res.json();
       }
       return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
+    updateUserProfile(data) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+        }),
+      }).then(this._checkResponse);
     }
 
     register (email, password, name) {
@@ -28,6 +37,74 @@ class MainApi {
       .then(this._checkResponse);
     };
 
+    saveToken(token) {
+      this._headers.authorization = 'Bearer ' + token;
+    }
+
+    login (email, password) {
+      console.log(email, password);
+      return fetch(`${this._baseUrl}/signin`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        })
+      })
+      .then(this._checkResponse)
+      .then((data) => {
+        if (data.token) {
+          this.saveToken(data.token);
+          localStorage.setItem("jwt", data.token);
+          return data;
+        }
+      })
+    };
+
+    checkToken (jwt) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : `Bearer ${jwt}`
+        },
+      })
+      .then((res) => {
+        if (res.ok) {
+          this.saveToken(jwt);
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+    };
+
+    addBookmark(data) {
+      return fetch(`${this._baseUrl}/movies`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+          country: data.country || 'unknown',
+          director: data.director || 'unknown',
+          duration: data.duration || 'No data',
+          year: data.year || 'unknown',
+          description: data.description || 'No description',
+          image: 'https://api.nomoreparties.co/' + data.image.url,
+          trailerLink: data.trailerLink || 'No trailer',
+          thumbnail: 'https://api.nomoreparties.co/' + data.image.url,
+          movieId: data.id || 'No data',
+          nameRU: data.nameRU,
+          nameEN: data.nameEN || 'No name',
+        }),
+      })
+        .then((res) => this._checkResponse(res));
+    }
+
+    getSavedMovies() {
+      return fetch(`${this._baseUrl}/movies`, {
+        method: "GET",
+        headers: this._headers,
+      }).then(this._checkResponse);
+    }
   }
 
 //создаем экземпляр класса
