@@ -14,6 +14,15 @@
   .submit-button:hover {
     cursor: pointer;
   }
+
+  .submit-btn_is-disabled {
+    background-color: #E8E8E8;
+  }
+
+  .submit-btn_is-disabled:hover {
+    cursor:default;
+  }
+  
   
   @media screen and (min-width: 768px) {
     .submit-button {
