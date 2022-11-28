@@ -63,6 +63,17 @@ function App() {
     })
   }
 
+  function deleteBookmark(movie) {
+    const savedMovie = movie._id ? movie : savedMovies.find(i => i.movieId === movie.id);
+    mainApi.deleteBookmark(savedMovie)
+    .then (() => {
+      setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
+    })
+    .catch ((data) => {
+      console.log(data)
+    })
+  }
+
   function isSaved(movie) {
     return savedMovies.some(i => i.movieId === movie.id);
   }
@@ -108,13 +119,13 @@ function App() {
 
           <ProtectedRoute exact path="/movies" loggedIn={loggedIn} redirectTo='/'>
             <Header navigation={true} />
-            <Movies isLoading={false} addBookmark={addBookmark} isSaved={isSaved}/>
+            <Movies isLoading={false} addBookmark={addBookmark} isSaved={isSaved} deleteBookmark={deleteBookmark}/>
             <Footer />
           </ProtectedRoute>
 
           <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} redirectTo='/'>
             <Header navigation={true} />
-            <SavedMovies renderSavedCurrentMovies={savedMovies} />
+            <SavedMovies savedMovies={savedMovies} deleteBookmark={deleteBookmark} />
             <Footer />
           </ProtectedRoute>
 

@@ -99,6 +99,17 @@ class MainApi {
         .then((res) => this._checkResponse(res));
     }
 
+    deleteBookmark(data) {
+      return fetch(`${this._baseUrl}/movies/${data._id}`, {
+        method: 'DELETE',
+        headers: this._headers,
+        body: JSON.stringify({
+          _id: data._id,
+        }),
+      })
+      .then((res) => this._checkResponse(res));
+    }
+
     getSavedMovies() {
       return fetch(`${this._baseUrl}/movies`, {
         method: "GET",

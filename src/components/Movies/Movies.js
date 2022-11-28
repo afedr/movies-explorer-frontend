@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import moviesApi from "../../utils/MoviesApi";
 import SearchData from '../SearchData/SearchData';
 
-function Movies({addBookmark, isSaved}) {
+function Movies({addBookmark, isSaved, deleteBookmark}) {
 
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery'));
   const [allMovies, setAllMovies] = useState([]);
@@ -53,7 +53,7 @@ function Movies({addBookmark, isSaved}) {
     <section className='movies' >
       <SearchForm handleSearch={handleSearch} searchQuery={searchQuery}/>
       {preloading && <Preloader />}
-      {!preloading && <MoviesCardList renderCurrentMovies={renderCurrentMovies} addBookmark={addBookmark} isSaved={isSaved}/>}
+      {!preloading && <MoviesCardList renderCurrentMovies={renderCurrentMovies} addBookmark={addBookmark} isSaved={isSaved} deleteBookmark={deleteBookmark}/>}
       {searchResult.length !== 0 && <SearchData text={searchResult} />}
     </section>
   );

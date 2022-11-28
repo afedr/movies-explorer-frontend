@@ -4,7 +4,7 @@ import "./MoviesCardList.css";
 import { useState } from "react";
 
 // renderCurrentMovies это запрос пользователя смечился с массивом
-function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved }) {
+function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved, deleteBookmark }) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
@@ -50,10 +50,10 @@ function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved
         {resizeCurrentMovies.map((movie) => (
           <li className="movies-card-list__item">
             <MoviesCard movie={movie}
-              isSaved={movie.saved}
               isSavedMoviesPage={renderCards}
               addBookmark={addBookmark}
               isSaved={isSaved}
+              deleteBookmark={deleteBookmark}
             />
           </li>
         ))}

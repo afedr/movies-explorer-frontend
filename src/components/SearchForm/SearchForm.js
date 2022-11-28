@@ -22,7 +22,7 @@ function SearchForm({ handleSearch, searchQuery}) {
     if (!inputValue) {
       setError('Нужно ввести ключевое слово');
     } else {
-      handleSearch(inputValue);
+      handleSearch(inputValue, e);
     }
   }
 

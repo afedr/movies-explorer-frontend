@@ -4,13 +4,29 @@ import SavedMoviesBtn from "../SavedMoviesBtn/SavedMoviesBtn";
 import SavedMoviesRemoveBtn from "../SavedMoviesRemoveBtn/SavedMoviesRemoveBtn";
 import "./MoviesCard.css";
 
-function MoviesCard({movie, isSavedMoviesPage, addBookmark, isSaved}) {
+function MoviesCard({
+  movie,
+  isSavedMoviesPage,
+  addBookmark,
+  isSaved,
+  deleteBookmark,
+}) {
+  function onAddClickHandler() {
 
-  function onClickHandler() {
-    addBookmark(movie)
+    if (isSaved(movie)) {
+      deleteBookmark(movie);
+    } else {
+      addBookmark(movie);
+    }
   }
 
-  const link = movie.image.url ? `https://api.nomoreparties.co/` + movie.image.url : movie.image;
+  function onDeleteClickHandler() {
+    deleteBookmark(movie);
+  }
+
+  const link = movie.image.url
+    ? `https://api.nomoreparties.co/` + movie.image.url
+    : movie.image;
 
   return (
     <>
@@ -21,9 +37,12 @@ function MoviesCard({movie, isSavedMoviesPage, addBookmark, isSaved}) {
             <p className="movie-card__duration">{movie.duration}</p>
           </div>
           {isSavedMoviesPage ? (
-            <SavedMoviesRemoveBtn />
+            <SavedMoviesRemoveBtn onClick={onDeleteClickHandler} />
           ) : (
-            <SavedMoviesBtn isSaved={isSaved(movie)} onClick={onClickHandler} />
+            <SavedMoviesBtn
+              isSaved={isSaved(movie)}
+              onClick={onAddClickHandler}
+            />
           )}
         </div>
         <a
