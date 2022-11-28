@@ -3,12 +3,17 @@ import MoreMoviesBtn from "../MoreMoviesBtn/MoreMoviesBtn";
 import "./MoviesCardList.css";
 import { useState } from "react";
 
-// renderCurrentMovies это запрос пользователя смечился с массивом
-function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved, deleteBookmark }) {
+function MoviesCardList({
+  renderCards,
+  renderCurrentMovies,
+  addBookmark,
+  isSaved,
+  deleteBookmark,
+}) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
-  function countInitialMovies() { // сколько есть сейчас
+  function countInitialMovies() {
     return window.innerWidth >= desktopWidth
       ? 12
       : window.innerWidth >= tabletWidth
@@ -24,7 +29,7 @@ function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved
       : 2;
   }
 
-  const [countToBeMovies, setCountToBeMovies] = useState(countInitialMovies()); //сколько должно быть
+  const [countToBeMovies, setCountToBeMovies] = useState(countInitialMovies()); 
 
   window.addEventListener(
     "resize",
@@ -33,14 +38,14 @@ function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved
     },
     true
   );
-  
+
   function handleMoviesBtn() {
-    setCountToBeMovies(countToBeMovies + countAddMovies())
+    setCountToBeMovies(countToBeMovies + countAddMovies());
   }
 
-  // массив кароточек которые мы будем рисовать 
+  
   const resizeCurrentMovies =
-  renderCurrentMovies.length >= countToBeMovies
+    renderCurrentMovies.length >= countToBeMovies
       ? renderCurrentMovies.slice(0, countToBeMovies)
       : renderCurrentMovies;
 
@@ -48,8 +53,9 @@ function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
         {resizeCurrentMovies.map((movie) => (
-          <li className="movies-card-list__item">
-            <MoviesCard movie={movie}
+          <li className="movies-card-list__item" key={movie._id || movie.id}>
+            <MoviesCard
+              movie={movie}
               isSavedMoviesPage={renderCards}
               addBookmark={addBookmark}
               isSaved={isSaved}
@@ -58,7 +64,9 @@ function MoviesCardList({ renderCards, renderCurrentMovies, addBookmark, isSaved
           </li>
         ))}
       </ul>
-      {resizeCurrentMovies.length < renderCurrentMovies.length && <MoreMoviesBtn handleMoviesBtn={handleMoviesBtn} />}
+      {resizeCurrentMovies.length < renderCurrentMovies.length && (
+        <MoreMoviesBtn handleMoviesBtn={handleMoviesBtn} />
+      )}
     </section>
   );
 }

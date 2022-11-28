@@ -17,12 +17,10 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 
 function App() {
-
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'));
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
-
 
   function handleUpdateUser(data) {
     mainApi
@@ -36,118 +34,143 @@ function App() {
   }
 
   function handleLogout() {
-      localStorage.removeItem('jwt');
-      localStorage.removeItem('loggedIn');
-      localStorage.removeItem('renderCurrentMovies');
-      localStorage.removeItem('searchQuery')
-      setLoggedIn(false);
-      setCurrentUser({});
-      history.push('/');
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("renderCurrentMovies");
+    localStorage.removeItem("searchQuery");
+    localStorage.removeItem("isFilterOn");
+    setLoggedIn(false);
+    setCurrentUser({});
+    history.push("/");
   }
 
   function handleLogin(email, password) {
-    return mainApi.login(email, password)
-      .then((data) => {
-        setLoggedIn(true);
-        localStorage.setItem('loggedIn', true);
-      });
+    return mainApi.login(email, password).then((data) => {
+      setLoggedIn(true);
+      localStorage.setItem("loggedIn", true);
+    });
   }
 
   function addBookmark(movie) {
-    mainApi.addBookmark(movie)
-    .then ((movie) => {
-      setSavedMovies([...savedMovies, { ...movie}]);
-    })
-    .catch ((data) => {
-      console.log(data)
-    })
+    mainApi
+      .addBookmark(movie)
+      .then((movie) => {
+        setSavedMovies([...savedMovies, { ...movie }]);
+      })
+      .catch((data) => {
+        console.log(data);
+      });
   }
 
   function deleteBookmark(movie) {
-    const savedMovie = movie._id ? movie : savedMovies.find(i => i.movieId === movie.id);
-    mainApi.deleteBookmark(savedMovie)
-    .then (() => {
-      setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
-    })
-    .catch ((data) => {
-      console.log(data)
-    })
+    const savedMovie = movie._id
+      ? movie
+      : savedMovies.find((i) => i.movieId === movie.id);
+    mainApi
+      .deleteBookmark(savedMovie)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
+      })
+      .catch((data) => {
+        console.log(data);
+      });
   }
 
   function isSaved(movie) {
-    return savedMovies.some(i => i.movieId === movie.id);
+    return savedMovies.some((i) => i.movieId === movie.id);
   }
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      mainApi.checkToken(jwt)
+      mainApi
+        .checkToken(jwt)
         .then((res) => {
           setLoggedIn(true);
           setCurrentUser(res);
-          localStorage.setItem('loggedIn', true);
+          localStorage.setItem("loggedIn", true);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [loggedIn]);
-  
+
   useEffect(() => {
     if (savedMovies.length === 0 && currentUser.email) {
-      mainApi.getSavedMovies()
-        .then ((movies) => {
+      mainApi
+        .getSavedMovies()
+        .then((movies) => {
           setSavedMovies(movies);
         })
-        .catch ((data) => {
+        .catch((data) => {
           console.log(data);
-      
-        })
-    }  
+        });
+    }
   }, [currentUser, savedMovies]);
 
- return (
-  <CurrentUserContext.Provider value={currentUser}>
-    <div className="app">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <Header navigation={loggedIn} />
-            <Main />
-            <Footer />
-          </Route>
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <Header navigation={loggedIn} />
+              <Main />
+              <Footer />
+            </Route>
 
-          <ProtectedRoute exact path="/movies" loggedIn={loggedIn} redirectTo='/'>
-            <Header navigation={true} />
-            <Movies isLoading={false} addBookmark={addBookmark} isSaved={isSaved} deleteBookmark={deleteBookmark}/>
-            <Footer />
-          </ProtectedRoute>
+            <ProtectedRoute
+              exact
+              path="/movies"
+              loggedIn={loggedIn}
+              redirectTo="/"
+            >
+              <Header navigation={true} />
+              <Movies
+                isLoading={false}
+                addBookmark={addBookmark}
+                isSaved={isSaved}
+                deleteBookmark={deleteBookmark}
+              />
+              <Footer />
+            </ProtectedRoute>
 
-          <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} redirectTo='/'>
-            <Header navigation={true} />
-            <SavedMovies savedMovies={savedMovies} deleteBookmark={deleteBookmark} />
-            <Footer />
-          </ProtectedRoute>
+            <ProtectedRoute
+              path="/saved-movies"
+              loggedIn={loggedIn}
+              redirectTo="/"
+            >
+              <Header navigation={true} />
+              <SavedMovies
+                savedMovies={savedMovies}
+                deleteBookmark={deleteBookmark}
+              />
+              <Footer />
+            </ProtectedRoute>
 
-          <Route path="/signin">
-            <Login handleLogin={handleLogin}/>
-          </Route>
+            <Route path="/signin">
+              <Login handleLogin={handleLogin} />
+            </Route>
 
-          <Route path="/signup">
-            <Register /> 
-          </Route>
+            <Route path="/signup">
+              <Register />
+            </Route>
 
-          <ProtectedRoute path="/profile" loggedIn={loggedIn} redirectTo='/'>
-            <Header navigation={true}/>
-            <Profile onUpdateProfile={handleUpdateUser} logOutHandler={handleLogout} />
-          </ProtectedRoute>
+            <ProtectedRoute path="/profile" loggedIn={loggedIn} redirectTo="/">
+              <Header navigation={true} />
+              <Profile
+                onUpdateProfile={handleUpdateUser}
+                logOutHandler={handleLogout}
+              />
+            </ProtectedRoute>
 
-          <Route path="*">
-            <ErrorPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+            <Route path="*">
+              <ErrorPage />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
     </CurrentUserContext.Provider>
   );
 }

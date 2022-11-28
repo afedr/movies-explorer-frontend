@@ -1,5 +1,4 @@
 import React from "react";
-import mainApi from "../../utils/MainApi";
 import SavedMoviesBtn from "../SavedMoviesBtn/SavedMoviesBtn";
 import SavedMoviesRemoveBtn from "../SavedMoviesRemoveBtn/SavedMoviesRemoveBtn";
 import "./MoviesCard.css";
@@ -12,7 +11,6 @@ function MoviesCard({
   deleteBookmark,
 }) {
   function onAddClickHandler() {
-
     if (isSaved(movie)) {
       deleteBookmark(movie);
     } else {
@@ -28,13 +26,19 @@ function MoviesCard({
     ? `https://api.nomoreparties.co/` + movie.image.url
     : movie.image;
 
+  const hourDurationMovie = Math.floor(movie.duration / 60);
+  const minuteDurationMovie = movie.duration % 60;
+
   return (
     <>
       <div className="movie-card">
         <div className="movie-card__header">
           <div className="movie-card__meta-container">
             <h4 className="movie-card__title">{movie.nameRU}</h4>
-            <p className="movie-card__duration">{movie.duration}</p>
+            <p className="movie-card__duration">
+              {hourDurationMovie ? `${hourDurationMovie}ч` : ""}{" "}
+              {minuteDurationMovie}м
+            </p>
           </div>
           {isSavedMoviesPage ? (
             <SavedMoviesRemoveBtn onClick={onDeleteClickHandler} />

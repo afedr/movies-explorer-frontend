@@ -4,8 +4,8 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import SignNav from "../SignNav/SignNav";
-import { useState } from 'react';
-import useFormWithValidation from '../FormWithValidation/useFormWithValidation';
+import { useState } from "react";
+import useFormWithValidation from "../FormWithValidation/useFormWithValidation";
 import "./Register.css";
 
 import mainApi from "../../utils/MainApi";
@@ -20,15 +20,18 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    mainApi.register(formWithValidation.values.email, formWithValidation.values.password, formWithValidation.values.name)
-    .then((data) => {
-      setIsRegisterFailed(false);
-      formWithValidation.resetForm();
-      history.push("/signin");
-    })
-    .catch((err) => 
-      setIsRegisterFailed(true)
-    );
+    mainApi
+      .register(
+        formWithValidation.values.email,
+        formWithValidation.values.password,
+        formWithValidation.values.name
+      )
+      .then((data) => {
+        setIsRegisterFailed(false);
+        formWithValidation.resetForm();
+        history.push("/signin");
+      })
+      .catch((err) => setIsRegisterFailed(true));
   }
 
   return (
@@ -73,8 +76,14 @@ function Register() {
             errors={formWithValidation.errors.password}
           />
         </div>
-        {isRegisterFailed && <span className='register__error'>Ошибка при регистрации</span>}
-        <SubmitButton isDisabled={!formWithValidation.isValid} handleSubmit={handleSubmit} label={'Зарегистрироваться'}/>
+        {isRegisterFailed && (
+          <span className="register__error">Ошибка при регистрации</span>
+        )}
+        <SubmitButton
+          isDisabled={!formWithValidation.isValid}
+          handleSubmit={handleSubmit}
+          label={"Зарегистрироваться"}
+        />
       </Form>
       <SignNav label="Уже зарегистрированы?" link="Войти" to="/signin" />
     </section>

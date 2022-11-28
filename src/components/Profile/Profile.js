@@ -1,14 +1,17 @@
-import './Profile.css';
+import "./Profile.css";
 import React from "react";
 import { CurrentUserContext } from "../CurrentUserContext/CurrentUserContext";
-import useFormWithValidation from '../FormWithValidation/useFormWithValidation';
+import useFormWithValidation from "../FormWithValidation/useFormWithValidation";
 
-function Profile({onUpdateProfile, logOutHandler}) {
+function Profile({ onUpdateProfile, logOutHandler }) {
   const currentUser = React.useContext(CurrentUserContext);
   const formWithValidation = useFormWithValidation();
 
   React.useEffect(() => {
-    formWithValidation.setValues({name: currentUser.name, email: currentUser.email}); 
+    formWithValidation.setValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
   }, [currentUser]);
 
   function handleSubmit(e) {
@@ -19,55 +22,53 @@ function Profile({onUpdateProfile, logOutHandler}) {
     });
   }
 
-
   return (
-    <form className='profile' onSubmit={handleSubmit}>
-      <div className='profile__info'>
-        <h1 className='profile__heading'>Привет, {currentUser.name} </h1>
-        <div className='profile__unit'>
-          <label className='profile__key'>
-            Имя
-          </label>
+    <form className="profile" onSubmit={handleSubmit}>
+      <div className="profile__info">
+        <h1 className="profile__heading">Привет, {currentUser.name} </h1>
+        <div className="profile__unit">
+          <label className="profile__key">Имя</label>
           <input
-            className='profile__value'
-            name='name'
-            id='profile-name'
-            type='text'
+            className="profile__value"
+            name="name"
+            id="profile-name"
+            type="text"
             minLength="2"
             maxLength="40"
-            value={formWithValidation.values.name||''}
+            value={formWithValidation.values.name || ""}
             onChange={formWithValidation.handleChange}
           />
-          {formWithValidation.errors.name && <p className='profile__error'>{formWithValidation.errors.name}</p>}
+          {formWithValidation.errors.name && (
+            <p className="profile__error">{formWithValidation.errors.name}</p>
+          )}
         </div>
-        <hr className='profile__line' />
-        <div className='profile__unit'>
-          <label className='profile__key'>
-            E-mail
-          </label>
+        <hr className="profile__line" />
+        <div className="profile__unit">
+          <label className="profile__key">E-mail</label>
           <input
-            className='profile__value'
-            name='email'
-            id='profile-email'
-            type='email'
+            className="profile__value"
+            name="email"
+            id="profile-email"
+            type="email"
             minLength="2"
             maxLength="40"
-            value={formWithValidation.values.email||''}
+            value={formWithValidation.values.email || ""}
             onChange={formWithValidation.handleChange}
           />
-           {formWithValidation.errors.email && <p className='profile__error'>{formWithValidation.errors.email}</p>}
+          {formWithValidation.errors.email && (
+            <p className="profile__error">{formWithValidation.errors.email}</p>
+          )}
         </div>
       </div>
-      <div className='profile__buttons'>
-        <button
-          type='submit'
-          className='profile__button'>
+      <div className="profile__buttons">
+        <button type="submit" className="profile__button">
           Редактировать
         </button>
         <button
-        type='button'
-          className='profile__button profile__button_quit'
-          onClick={logOutHandler}>
+          type="button"
+          className="profile__button profile__button_quit"
+          onClick={logOutHandler}
+        >
           Выйти из аккаунта
         </button>
       </div>

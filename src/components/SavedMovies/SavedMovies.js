@@ -5,28 +5,35 @@ import SearchData from "../SearchData/SearchData";
 
 function SavedMovies({ savedMovies, deleteBookmark }) {
   const [searchResult, setSearchResult] = useState("");
-  const [resultOfSavedMoviesSearch, setResultOfSavedMoviesSearch] = useState(savedMovies);
+  const [resultOfSavedMoviesSearch, setResultOfSavedMoviesSearch] =
+    useState(savedMovies);
 
-  console.log(savedMovies);
-  
+  // console.log(savedMovies);
+
   useEffect(() => {
     setResultOfSavedMoviesSearch(savedMovies);
   }, [savedMovies]);
-  
-  function handleSearch(inputData, e) {
-    e.preventDefault();
 
+  function handleSearch(inputData, isFilterOn) {
     console.log(inputData);
-    const currentMovies = savedMovies.filter(
+    const searchResult = savedMovies.filter(
       (movie) =>
         movie.nameRU.includes(inputData) || movie.nameEN.includes(inputData)
     );
-    if (inputData.length !== 0 && currentMovies.length === 0) {
+    const onlyShortMoviesResult = searchResult.filter(
+      (movie) => movie.duration <= 40
+    );
+
+    // console.log(onlyShortMoviesResult);
+
+    const filterResult = isFilterOn ? onlyShortMoviesResult : searchResult;
+
+    if (inputData.length !== 0 && filterResult.length === 0) {
       setSearchResult("Ничего не найдено");
     } else {
       setSearchResult("");
     }
-    setResultOfSavedMoviesSearch(currentMovies);
+    setResultOfSavedMoviesSearch(filterResult);
   }
 
   return (
