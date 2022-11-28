@@ -1,0 +1,26 @@
+.input__in {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  color: #000;
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 5px 0px 10px;
+}
+
+.input__in:focus {
+  outline: none;
+  color: #000;
+}
+
+.input__out {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    margin-bottom: 20px;
+    color: #A0A0A0;
+  }

@@ -1,0 +1,24 @@
+.submit-button {
+    border: none;
+    border-radius: 3px;
+    padding: 15px;
+    color: #fff;
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 132px;
+    background-color: #2be080;
+  }
+
+  .submit-button:hover {
+    cursor: pointer;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .submit-button {
+      font-size: 14px;
+      line-height: 17px;
+      padding: 14px;
+    }
+  }

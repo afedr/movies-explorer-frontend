@@ -1,0 +1,171 @@
+.navigation {
+    box-sizing: border-box;
+    max-height: 74px;
+  }
+  
+  .nav__overlay {
+    position: fixed;
+    background-color: #000000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .nav__icon {
+    margin: 15px 16px;
+    box-sizing: border-box;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .nav__icon:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  
+  .nav__popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    width: min(100%, 520px);
+    height: 100%;
+    z-index: 100;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 100px 20px 48px;
+    box-sizing: border-box;
+  }
+  
+  .nav__close {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .nav__close:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .navigation__main-nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navigation__link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    text-decoration: none;
+    width: min-content;
+    height: 29px;
+    white-space: nowrap;
+    margin: 0 auto;
+    padding-top: 15px;
+  }
+  
+  .navigation__link:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .navigation__link_active {
+    border-bottom: 2px solid #000;
+  }
+  
+  .navigation__profile-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    text-decoration: none;
+    width: min-content;
+    display: flex;
+    align-items: center;
+    background-color: #F9F9F9;
+    border-radius: 20px;
+    width: 100px;
+    height: 32px;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .navigation__profile-link:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+
+  @media screen and (min-width: 501px) {
+    .navigation {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .navigation__main-nav {
+      display: flex;
+      flex-direction: column;
+      margin-top: 28px;
+    }
+
+  
+    .navigation__link_current {
+      border: none;
+      font-weight: 500;
+    }
+  
+  }
+  
+  @media screen and (min-width: 768px) {
+    .nav__popup {
+      padding: 131px 90px 92px;
+    }
+    .nav__icon {
+      margin: 15px 30px;
+    }
+
+  }
+  
+  
+
+  @media screen and (min-width: 769px) {
+    .navigation__main-nav {
+      flex-direction: row;
+    }
+
+    .navigation__profile-link {
+      margin: 21px 70px 0 0;
+    }
+
+    .navigation__link {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 18px;
+      margin: 0 16px 0 0;
+      padding: 0;
+    }
+  
+    .navigation__link:last-of-type {
+      margin: 0;
+    } 
+  
+  }
+
+  @media screen and (max-width: 768px) {
+    .navigation {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+  }

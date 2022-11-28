@@ -1,0 +1,165 @@
+.intro {
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro__box {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro__photo {
+  margin: 60px auto 0;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.intro__caption {
+  margin: 20px 0 0;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  color: #000;
+}
+
+.intro__heading {
+  margin: 40px 0 0;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #000;
+}
+
+.intro__paragraph {
+  margin: 20px 0 0;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  color: #000;
+}
+
+.intro__social {
+  display: flex;
+  flex-direction: row;
+  margin: 40px 0;
+}
+
+.intro__link {
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+  text-decoration: none;
+  margin-right: 26px;
+}
+
+.intro__link:last-of-type {
+  margin-right: 0;
+}
+
+.intro__link:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 320px) {
+  .intro__photo {
+    max-width: 292px;
+    height: auto;
+  }
+
+  .intro__box {
+    padding: 0;
+  }
+}
+
+.intro__heading {
+  font-size: 30px;
+  line-height: 36px;
+}
+
+@media screen and (min-width: 768px) {
+  .intro {
+    padding: 0 50px;
+  }
+
+  .intro__box {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 60px;
+  }
+
+  .intro__photo {
+    max-width: 255px;
+    height: auto;
+    margin: 66px 0 0 50px;
+  }
+
+  .intro__text {
+    margin: 66px 0 0;
+    position: relative;
+    align-self: stretch;
+  }
+
+  .intro__heading {
+    font-size: 40px;
+    line-height: 40px;
+    margin: 0;
+  }
+
+  .intro__caption {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 16px 0 0;
+  }
+  .intro__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .intro__social {
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .intro {
+    padding: 0 70px;
+  }
+
+  .intro__heading {
+    font-size: 50px;
+    line-height: 58px;
+    max-width: 600px;
+  }
+  .intro__box {
+    margin-bottom: 70px;
+  }
+
+  .intro__photo {
+    max-width: 270px;
+  }
+
+  .intro__caption {
+    font-size: 18px;
+    line-height: 20px;
+    max-width: 600px;
+  }
+
+  .intro__paragraph {
+    font-size: 14px;
+    line-height: 22px;
+    max-width: 600px;
+  }
+}

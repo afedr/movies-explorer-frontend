@@ -1,0 +1,21 @@
+.saved-movies__remove-btn {
+width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-image: url('../../images/removebtn.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #F9F9F9;
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+}
+
+.saved-movies__remove-btn:hover {
+    cursor: pointer;
+    opacity: .6;
+  }
+  
+  .saved-movies__remove-btn:focus {
+    outline: none;
+  }
