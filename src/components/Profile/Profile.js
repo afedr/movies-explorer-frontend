@@ -5,7 +5,8 @@ import useFormWithValidation from "../FormWithValidation/useFormWithValidation";
 
 function Profile({ onUpdateProfile, logOutHandler }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const formWithValidation = useFormWithValidation();
+  const formWithValidation = useFormWithValidation({});
+  const [isChangeOk, setIsChangeOk] = React.useState(false);
 
   React.useEffect(() => {
     formWithValidation.setValues({
@@ -19,6 +20,12 @@ function Profile({ onUpdateProfile, logOutHandler }) {
     onUpdateProfile({
       name: formWithValidation.values.name,
       email: formWithValidation.values.email,
+    }).then(() => {
+      setIsChangeOk(true)
+    })
+    .catch((err) => {
+      setIsChangeOk(false)
+      console.log(err);
     });
   }
 
@@ -33,8 +40,6 @@ function Profile({ onUpdateProfile, logOutHandler }) {
             name="name"
             id="profile-name"
             type="text"
-            minLength="2"
-            maxLength="40"
             value={formWithValidation.values.name || ""}
             onChange={formWithValidation.handleChange}
           />
@@ -50,8 +55,6 @@ function Profile({ onUpdateProfile, logOutHandler }) {
             name="email"
             id="profile-email"
             type="email"
-            minLength="2"
-            maxLength="40"
             value={formWithValidation.values.email || ""}
             onChange={formWithValidation.handleChange}
           />
@@ -61,14 +64,19 @@ function Profile({ onUpdateProfile, logOutHandler }) {
         </div>
       </div>
       <div className="profile__buttons">
-        <button type="submit" className="profile__button">
+      {isChangeOk && (
+          <span className="profile__notification">Данные успешно отредактированы</span>
+        )}
+        <button 
+          type="submit" 
+          className="profile__button"
+          disabled={currentUser.name === formWithValidation.values.name && currentUser.email === formWithValidation.values.email}>
           Редактировать
         </button>
         <button
           type="button"
           className="profile__button profile__button_quit"
-          onClick={logOutHandler}
-        >
+          onClick={logOutHandler}> 
           Выйти из аккаунта
         </button>
       </div>

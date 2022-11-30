@@ -11,7 +11,10 @@ import { useHistory } from "react-router";
 
 function Login({handleLogin}) {
   const [isLoginFailed, setIsLoginFailed] = useState(false);
-  const formWithValidation = useFormWithValidation();
+  const formWithValidation = useFormWithValidation({
+    email: "",
+    password: "",
+  });
   const history = useHistory();
 
   function handleSubmit(e) {
@@ -39,7 +42,7 @@ function Login({handleLogin}) {
             type='email'
             autoComplete='username'
             placeholder='name@yandex.ru'
-            value={formWithValidation.values.email || ""}
+            value={formWithValidation.values.email}
             onChange={formWithValidation.handleChange}
             required
             errors={formWithValidation.errors.email}
@@ -50,7 +53,7 @@ function Login({handleLogin}) {
             type='password'
             autoComplete='current-password'
             placeholder='Пароль'
-            value={formWithValidation.values.password || ""}
+            value={formWithValidation.values.password}
             onChange={formWithValidation.handleChange}
             required
             errors={formWithValidation.errors.password}

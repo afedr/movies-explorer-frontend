@@ -21,15 +21,13 @@ function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isSavedMoviesLoaded, setIsSavedMoviesLoaded] = useState(false);
 
   function handleUpdateUser(data) {
-    mainApi
+    return mainApi
       .updateUserProfile(data)
       .then((value) => {
         setCurrentUser(value);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
 
@@ -40,6 +38,8 @@ function App() {
     localStorage.removeItem("searchQuery");
     localStorage.removeItem("isFilterOn");
     setLoggedIn(false);
+    setSavedMovies([]);
+    setIsSavedMoviesLoaded(false);
     setCurrentUser({});
     history.push("/");
   }
@@ -92,16 +92,19 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          handleLogout();
         });
     }
   }, [loggedIn]);
 
   useEffect(() => {
-    if (savedMovies.length === 0 && currentUser.email) {
+  
+    if (currentUser.email && !isSavedMoviesLoaded) {
       mainApi
         .getSavedMovies()
         .then((movies) => {
           setSavedMovies(movies);
+          setIsSavedMoviesLoaded(true)
         })
         .catch((data) => {
           console.log(data);
@@ -149,13 +152,13 @@ function App() {
               <Footer />
             </ProtectedRoute>
 
-            <Route path="/signin">
+            <ProtectedRoute path="/signin" loggedIn={!loggedIn} redirectTo="/">
               <Login handleLogin={handleLogin} />
-            </Route>
+            </ProtectedRoute>
 
-            <Route path="/signup">
-              <Register />
-            </Route>
+            <ProtectedRoute path="/signup" loggedIn={!loggedIn} redirectTo="/">
+              <Register handleLogin={handleLogin}/>
+            </ProtectedRoute>
 
             <ProtectedRoute path="/profile" loggedIn={loggedIn} redirectTo="/">
               <Header navigation={true} />

@@ -5,7 +5,6 @@ class MainApi {
   }
 
   _checkResponse(res) {
-    // console.log(res);
     if (res.ok) {
       return res.json();
     }
@@ -24,7 +23,6 @@ class MainApi {
   }
 
   register(email, password, name) {
-    // console.log(email, password, name);
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
       headers: this._headers,
@@ -41,7 +39,6 @@ class MainApi {
   }
 
   login(email, password) {
-    // console.log(email, password);
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
       headers: this._headers,

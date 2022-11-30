@@ -27,7 +27,7 @@ function Movies({ addBookmark, isSaved, deleteBookmark }) {
       .then((allMovies) => {
         const searchResult = allMovies.filter(
           (movie) =>
-            movie.nameRU.includes(inputData) || movie.nameEN.includes(inputData)
+            movie.nameRU.toLowerCase().includes(inputData.toLowerCase()) || movie.nameEN.toLowerCase().includes(inputData.toLowerCase())
         );
         const onlyShortMoviesResult = searchResult.filter(
           (movie) => movie.duration <= 40

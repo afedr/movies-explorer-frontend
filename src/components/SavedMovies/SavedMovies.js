@@ -8,14 +8,11 @@ function SavedMovies({ savedMovies, deleteBookmark }) {
   const [resultOfSavedMoviesSearch, setResultOfSavedMoviesSearch] =
     useState(savedMovies);
 
-  // console.log(savedMovies);
-
   useEffect(() => {
     setResultOfSavedMoviesSearch(savedMovies);
   }, [savedMovies]);
 
   function handleSearch(inputData, isFilterOn) {
-    console.log(inputData);
     const searchResult = savedMovies.filter(
       (movie) =>
         movie.nameRU.includes(inputData) || movie.nameEN.includes(inputData)
@@ -23,8 +20,6 @@ function SavedMovies({ savedMovies, deleteBookmark }) {
     const onlyShortMoviesResult = searchResult.filter(
       (movie) => movie.duration <= 40
     );
-
-    // console.log(onlyShortMoviesResult);
 
     const filterResult = isFilterOn ? onlyShortMoviesResult : searchResult;
 

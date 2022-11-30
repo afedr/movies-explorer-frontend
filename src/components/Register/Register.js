@@ -12,9 +12,13 @@ import mainApi from "../../utils/MainApi";
 
 import { useHistory } from "react-router";
 
-function Register() {
+function Register({handleLogin}) {
   const [isRegisterFailed, setIsRegisterFailed] = useState(false);
-  const formWithValidation = useFormWithValidation();
+  const formWithValidation = useFormWithValidation({
+    name: "",
+    email: "",
+    password: "",
+  });
   const history = useHistory();
 
   function handleSubmit(e) {
@@ -29,7 +33,10 @@ function Register() {
       .then((data) => {
         setIsRegisterFailed(false);
         formWithValidation.resetForm();
-        history.push("/signin");
+        handleLogin(formWithValidation.values.email, formWithValidation.values.password)
+        .then(() => {
+          history.push("/movies");
+        })
       })
       .catch((err) => setIsRegisterFailed(true));
   }
@@ -43,11 +50,9 @@ function Register() {
             name="name"
             label="Имя"
             type="text"
-            minLength="2"
-            maxLength="30"
             autoComplete="username"
             placeholder="Имя"
-            value={formWithValidation.values.name || ""}
+            value={formWithValidation.values.name}
             onChange={formWithValidation.handleChange}
             required
             errors={formWithValidation.errors.name}
@@ -57,7 +62,7 @@ function Register() {
             label="E-mail"
             type="email"
             autoComplete="email"
-            value={formWithValidation.values.email || ""}
+            value={formWithValidation.values.email}
             placeholder="емейл"
             onChange={formWithValidation.handleChange}
             required
@@ -67,10 +72,9 @@ function Register() {
             name="password"
             label="Пароль"
             type="password"
-            minLength="6"
             autoComplete="new-password"
             placeholder="Пароль"
-            value={formWithValidation.values.password || ""}
+            value={formWithValidation.values.password}
             onChange={formWithValidation.handleChange}
             required
             errors={formWithValidation.errors.password}
