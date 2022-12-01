@@ -48,6 +48,7 @@ function App() {
     return mainApi.login(email, password).then((data) => {
       setLoggedIn(true);
       localStorage.setItem("loggedIn", true);
+      checkTokenAndGetUserData();
     });
   }
 
@@ -80,7 +81,7 @@ function App() {
     return savedMovies.some((i) => i.movieId === movie.id);
   }
 
-  useEffect(() => {
+  function checkTokenAndGetUserData() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       mainApi
@@ -92,10 +93,18 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          // Если произошла ошибка, то безопаснее разлогинить пользователя
           handleLogout();
         });
+    } else if (loggedIn) {
+      // Если токена нет, то безопаснее разлогинить пользователя
+      handleLogout();
     }
-  }, [loggedIn]);
+  }
+
+  useEffect(() => {
+    checkTokenAndGetUserData();
+  }, []);
 
   useEffect(() => {
   
