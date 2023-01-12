@@ -4,30 +4,54 @@ import SavedMoviesRemoveBtn from "../SavedMoviesRemoveBtn/SavedMoviesRemoveBtn";
 import "./MoviesCard.css";
 
 function MoviesCard({
-  title,
-  duration,
-  link,
-  trailer,
-  isSaved,
+  movie,
   isSavedMoviesPage,
+  addBookmark,
+  isSaved,
+  deleteBookmark,
 }) {
+  function onAddClickHandler() {
+    if (isSaved(movie)) {
+      deleteBookmark(movie);
+    } else {
+      addBookmark(movie);
+    }
+  }
+
+  function onDeleteClickHandler() {
+    deleteBookmark(movie);
+  }
+
+  const link = movie.image.url
+    ? `https://api.nomoreparties.co/` + movie.image.url
+    : movie.image;
+
+  const hourDurationMovie = Math.floor(movie.duration / 60);
+  const minuteDurationMovie = movie.duration % 60;
+
   return (
     <>
       <div className="movie-card">
         <div className="movie-card__header">
           <div className="movie-card__meta-container">
-            <h4 className="movie-card__title">{title}</h4>
-            <p className="movie-card__duration">{duration}</p>
+            <h4 className="movie-card__title">{movie.nameRU}</h4>
+            <p className="movie-card__duration">
+              {hourDurationMovie ? `${hourDurationMovie}ч` : ""}{" "}
+              {minuteDurationMovie}м
+            </p>
           </div>
           {isSavedMoviesPage ? (
-            <SavedMoviesRemoveBtn />
+            <SavedMoviesRemoveBtn onClick={onDeleteClickHandler} />
           ) : (
-            <SavedMoviesBtn isSaved={isSaved} />
+            <SavedMoviesBtn
+              isSaved={isSaved(movie)}
+              onClick={onAddClickHandler}
+            />
           )}
         </div>
         <a
           className="movie-card__link"
-          href={trailer}
+          href={movie.trailerLink}
           target="_blank"
           rel="noopener noreferrer"
         >

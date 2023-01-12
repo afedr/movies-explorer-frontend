@@ -3,144 +3,70 @@ import MoreMoviesBtn from "../MoreMoviesBtn/MoreMoviesBtn";
 import "./MoviesCardList.css";
 import { useState } from "react";
 
-function MoviesCardList({ renderCards }) {
+function MoviesCardList({
+  renderCards,
+  renderCurrentMovies,
+  addBookmark,
+  isSaved,
+  deleteBookmark,
+}) {
   const desktopWidth = 1280;
   const tabletWidth = 768;
 
-  function calcMaxMovies() {
+  function countInitialMovies() {
     return window.innerWidth >= desktopWidth
       ? 12
       : window.innerWidth >= tabletWidth
       ? 8
       : 5;
   }
-  const [countMaxMovies, setCountMaxMovies] = useState(calcMaxMovies());
+
+  function countAddMovies() {
+    return window.innerWidth >= desktopWidth
+      ? 3
+      : window.innerWidth >= tabletWidth
+      ? 2
+      : 2;
+  }
+
+  const [countToBeMovies, setCountToBeMovies] = useState(countInitialMovies()); 
 
   window.addEventListener(
     "resize",
     function (event) {
-      setCountMaxMovies(calcMaxMovies());
+      setCountToBeMovies(countInitialMovies());
     },
     true
   );
 
-  const allMovies = [
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: false,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      saved: true,
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-    {
-      title: "«Роллинг Стоунз» в изгнании",
-      duration: "1ч 44м",
-      link: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-      trailer: "https://www.kino-teatr.ru/movie/kadr/92924/205862.jpg",
-    },
-  ];
+  function handleMoviesBtn() {
+    setCountToBeMovies(countToBeMovies + countAddMovies());
+  }
 
-  const moviesToRender = renderCards
-    ? allMovies.filter((movie) => movie.saved)
-    : allMovies;
-
-  const renderCurrentMovies =
-    moviesToRender.length >= countMaxMovies
-      ? moviesToRender.slice(0, countMaxMovies)
-      : moviesToRender;
+  
+  const resizeCurrentMovies =
+    renderCurrentMovies.length >= countToBeMovies
+      ? renderCurrentMovies.slice(0, countToBeMovies)
+      : renderCurrentMovies;
 
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {renderCurrentMovies.map((movie) => (
-          <li className="movies-card-list__item">
+        {resizeCurrentMovies.map((movie) => (
+          <li className="movies-card-list__item" key={movie._id || movie.id}>
             <MoviesCard
-              duration={movie.duration}
-              title={movie.title}
-              link={movie.link}
-              trailer={movie.trailer}
-              isSaved={movie.saved}
+              movie={movie}
               isSavedMoviesPage={renderCards}
+              addBookmark={addBookmark}
+              isSaved={isSaved}
+              deleteBookmark={deleteBookmark}
             />
           </li>
         ))}
       </ul>
-      {renderCurrentMovies.length < moviesToRender.length && <MoreMoviesBtn />}
+      {resizeCurrentMovies.length < renderCurrentMovies.length && (
+        <MoreMoviesBtn handleMoviesBtn={handleMoviesBtn} />
+      )}
     </section>
   );
 }

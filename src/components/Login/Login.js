@@ -1,11 +1,35 @@
 import FormHeader from '../FormHeader/FormHeader';
+import { useState } from 'react';
 import Input from '../Input/Input';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import Form from '../Form/Form';
 import SignNav from '../SignNav/SignNav';
 import './Login.css';
+import useFormWithValidation from '../FormWithValidation/useFormWithValidation';
+import mainApi from "../../utils/MainApi";
+import { useHistory } from "react-router";
 
-function Login() {
+function Login({handleLogin}) {
+  const [isLoginFailed, setIsLoginFailed] = useState(false);
+  const formWithValidation = useFormWithValidation({
+    email: "",
+    password: "",
+  });
+  const history = useHistory();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    handleLogin(formWithValidation.values.email, formWithValidation.values.password)
+    .then((data) => {
+      setIsLoginFailed(false);
+      formWithValidation.resetForm();
+      history.push("/movies");
+    })
+    .catch((err) => 
+      setIsLoginFailed(true)
+    );
+  }
 
   return (
     <section className='login'>
@@ -18,6 +42,10 @@ function Login() {
             type='email'
             autoComplete='username'
             placeholder='name@yandex.ru'
+            value={formWithValidation.values.email}
+            onChange={formWithValidation.handleChange}
+            required
+            errors={formWithValidation.errors.email}
           />
           <Input
             name='password'
@@ -25,9 +53,14 @@ function Login() {
             type='password'
             autoComplete='current-password'
             placeholder='Пароль'
+            value={formWithValidation.values.password}
+            onChange={formWithValidation.handleChange}
+            required
+            errors={formWithValidation.errors.password}
           />
         </div>
-        <SubmitButton label='Войти' />
+        {isLoginFailed && <span className='login__error'>Ошибка при входе</span>}
+        <SubmitButton isDisabled={!formWithValidation.isValid} handleSubmit={handleSubmit} label='Войти' />
       </Form>
       <SignNav
         label='Ещё не зарегистрированы?' link='Регистрация' to='/signup'
